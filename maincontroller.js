@@ -1,5 +1,6 @@
 app.controller("MainController", function($scope){
 	$scope.newPerson = null;
+	loadRemoteData();
     $scope.addNew = function() {
         if ($scope.newPerson != null && $scope.newPerson != "") {
             $scope.people.push({
@@ -10,7 +11,7 @@ app.controller("MainController", function($scope){
             });
         }
     }
-    
+
 	$scope.selectedPerson = 0;
 	$scope.selectedGenre = null;
 	$scope.people = [
@@ -58,4 +59,49 @@ app.controller("MainController", function($scope){
             live: true
         }
     ];
+
+	function loadRemoteData() {
+	 
+		// The friendService returns a promise.
+		friendService.getFriends()
+		.then(
+			function( friends ) {
+			 
+				applyRemoteData( friends );
+			 
+			}
+		);
+
+	}
+
+}
+ app.service(
+	"friendService",
+	function( $http, $q ) {
+	 
+		// Return public API.
+		return({
+		// addFriend: addFriend,
+		getFriends: getFriends,
+		// removeFriend: removeFriend
+		});
+	 
+	 	function getFriends() {
+	 
+			var request = $http({
+				method: "get",
+				url: "api/index.cfm",
+				params: {
+					action: "get"
+				}
+			});
+	 
+		return( request.then( handleSuccess, handleError ) );
+	}
+	function handleSuccess( response ) {
+ 
+		return( response.data );
+ 
+	}
+	 
 });
