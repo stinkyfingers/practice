@@ -1,0 +1,79 @@
+
+
+<div ng-app="movieApp">
+	<!-- <label for="name">Name (data binding):</label>
+	<input type="text" name="name" ng-model="name"> 
+	{{name }}
+
+	<div ng-controller="SimpleController">
+		<ul>
+			<li ng-repeat="customer in customers | filter:name | orderBy:'city'" >{{customer.name}} - {{customer.city}}</li> <!-- city in quotes gets property rather than name -->
+
+		<!-- </ul>
+
+	</div> --> 
+
+	<div ng-controller="movieController">
+		<ul>
+			<li ng-repeat="movie in movies">{{movie.original_title}}</li>
+		</ul>
+	</div>
+	<div ng-view=""></div>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/js/angular.js"></script>
+<script src="/js/angular-route.js"></script> <!-- old angular routing was deprecated in 1.2, added as sep module -->
+<script>
+
+	var developerKey = "6f94caa6ae73a84da6f7657b8c2089a8";
+
+	var movieApp = angular.module("movieApp",[]);//module (app)
+	// var controllers = {};
+	movieApp.controller("movieController", function($scope,movieFactory){//controllers //include scope and factories/services/etc as params
+		// $scope.movies  = [{name:'Bob', city:'Phoenix'},{name:'Dave', city:'Austin'},{name:'Steve', city:'Rockford'}];
+		// $scope.movies = movieFactory.getMovies();
+		function init(){
+			$scope.movies = movieFactory.getMovies();//can just put this line, init-ing is just nice for getting data
+			console.log($scope.movies);
+		}
+		init();
+		// $scope.addCustomer = function(){
+		// 	$scope.customers.push({name: $scope.newCustomer.name, city: $scope.newCustomer.city});
+		// }
+	});
+
+	movieApp.factory('movieFactory', function(){ //inject http (list as param $http) if you want to make .get call here
+		//if this were a service, use this keyword
+		var title = "Tomatoes";
+		var url = "http://api.themoviedb.org/3/search/movie?api_key=" + developerKey + "&query=" + title;
+		
+		// var movies = [{name:'Bob', city:'Phoenix'},{name:'Dave', city:'Austin'},{name:'Steve', city:'Rockford'}];
+		
+		var factory = {};
+		factory.getMovies=function(){
+			var movies =[];
+			movies = $.getJSON(url,function(data){
+				
+				// $.each(data.results,function(k,v){
+				// 	console.log(v.original_title);
+				// 	movies.push(v);
+				// });
+
+				return data.results;
+				
+			});
+			
+			console.log(movies);
+			return movies;
+		};
+		// factory.postCustomer = function(customer){
+		// 	//do something
+		// };
+		return factory;
+	});
+
+	// movieApp.controller(controllers);//est demoApps controllers
+
+
+
+</script>

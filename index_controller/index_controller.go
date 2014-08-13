@@ -38,6 +38,14 @@ func Params(rw http.ResponseWriter, req *http.Request, ren render.Render, params
 	Generic(rw, req, ren, tableData, template)
 }
 
+func Movies(rw http.ResponseWriter, req *http.Request, ren render.Render, params martini.Params) {
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
+	tableData := ""
+	// template := params["partial"]
+	template := "movies"
+	Generic(rw, req, ren, tableData, template)
+}
+
 func Generic(rw http.ResponseWriter, req *http.Request, ren render.Render, data interface{}, template string) {
 	rw.Header().Set("Access-Control-Allow-Origin", "*")
 	ren.HTML(200, template, data)
