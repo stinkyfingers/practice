@@ -28,51 +28,36 @@
 	var developerKey = "6f94caa6ae73a84da6f7657b8c2089a8";
 
 	var movieApp = angular.module("movieApp",[]);//module (app)
-	// var controllers = {};
-	movieApp.controller("movieController", function($scope,movieFactory){//controllers //include scope and factories/services/etc as params
-		// $scope.movies  = [{name:'Bob', city:'Phoenix'},{name:'Dave', city:'Austin'},{name:'Steve', city:'Rockford'}];
-		// $scope.movies = movieFactory.getMovies();
-		function init(){
-			$scope.movies = movieFactory.getMovies();//can just put this line, init-ing is just nice for getting data
-			console.log($scope.movies);
-		}
-		init();
-		// $scope.addCustomer = function(){
-		// 	$scope.customers.push({name: $scope.newCustomer.name, city: $scope.newCustomer.city});
-		// }
+
+	movieApp.controller("movieController", function($scope,movieFactory){//controllers //include scope and factories/services/etc as 
+		 movieFactory.getMovies()
+		 	.then(function(data){
+		 		$scope.movies = data.results;
+		 		// console.log($scope.movies);//moviedb returns json 'results' object with movies
+		 	})
+			
+
 	});
 
-	movieApp.factory('movieFactory', function(){ //inject http (list as param $http) if you want to make .get call here
+	movieApp.factory('movieFactory', ['$http','$q', function($http,$q){ //inject http (list as param $http) if you want to make .get call here; use aliases; q is for promise (then)
 		//if this were a service, use this keyword
 		var title = "Tomatoes";
 		var url = "http://api.themoviedb.org/3/search/movie?api_key=" + developerKey + "&query=" + title;
-		
-		// var movies = [{name:'Bob', city:'Phoenix'},{name:'Dave', city:'Austin'},{name:'Steve', city:'Rockford'}];
-		
+
 		var factory = {};
 		factory.getMovies=function(){
+			var deferred = $q.defer();
 			var movies =[];
-			movies = $.getJSON(url,function(data){
-				
-				// $.each(data.results,function(k,v){
-				// 	console.log(v.original_title);
-				// 	movies.push(v);
-				// });
-
-				return data.results;
-				
-			});
+			$http.get(url).success(function(data, status, headers, config){
+				deferred.resolve(data);
+			}).error(function (data, status, headers, config) {
+               deferred.reject(data);
+           });
 			
-			console.log(movies);
-			return movies;
+			return deferred.promise;
 		};
-		// factory.postCustomer = function(customer){
-		// 	//do something
-		// };
 		return factory;
-	});
-
-	// movieApp.controller(controllers);//est demoApps controllers
+	}]);
 
 
 
