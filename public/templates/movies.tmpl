@@ -2,18 +2,29 @@
 
 <div ng-app="movieApp">
 	<div ng-controller="movieController">
-		<label for="name">Name (data binding):</label>
+		<label for="name">Movie Name:</label>
 		<input type="text" name="name" ng-model="movie.name"> 
-		<p>{{movie.name }}</p>
+		<p>Your search: {{movie.name }}</p>
 		<button id="search">Search</button>
 
-
-
-		<ul>
-			<li ng-repeat="movie in movies">{{movie.original_title}}</li>
-		</ul>
+			<table class="movies">
+				<tr>
+					<th>Movie Title</th>
+					<th>Release Date</th>
+					<th>Popularity</th>
+					<th>Vote Average</th>
+					<th>Votes</th>
+				<tr ng-repeat="movie in movies | orderBy: 'popularity' : reverse=true" >
+					<td>{{movie.original_title}}</td>
+					<td>{{movie.release_date}}</td>
+					<td>{{movie.popularity}}</td>
+					<td>{{movie.vote_average}}</td>
+					<td>{{movie.vote_count}}</td>
+				</tr>
+			</table>
+		
 	</div>
-	<div ng-view=""></div>
+<!-- 	<div ng-view=""></div> -->
 </div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/js/angular.js"></script>
@@ -41,11 +52,12 @@
 
 		var factory = {};
 		factory.getMovies=function(movie){
-			console.log(movie.name); //movie passed to getMovies
+			// console.log(movie.name); //movie passed to getMovies
 			var deferred = $q.defer();
 			var movies =[];
 			$http.get(url+movie.name).success(function(data, status, headers, config){
 				deferred.resolve(data);
+				console.log(data);
 			}).error(function (data, status, headers, config) {
                deferred.reject(data);
            });
