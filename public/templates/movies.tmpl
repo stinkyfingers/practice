@@ -1,19 +1,14 @@
 
 
 <div ng-app="movieApp">
-	<!-- <label for="name">Name (data binding):</label>
-	<input type="text" name="name" ng-model="name"> 
-	{{name }}
-
-	<div ng-controller="SimpleController">
-		<ul>
-			<li ng-repeat="customer in customers | filter:name | orderBy:'city'" >{{customer.name}} - {{customer.city}}</li> <!-- city in quotes gets property rather than name -->
-
-		<!-- </ul>
-
-	</div> --> 
-
 	<div ng-controller="movieController">
+		<label for="name">Name (data binding):</label>
+		<input type="text" name="name" ng-model="movie.name"> 
+		<p>{{movie.name }}</p>
+		<button id="search">Search</button>
+
+
+
 		<ul>
 			<li ng-repeat="movie in movies">{{movie.original_title}}</li>
 		</ul>
@@ -30,25 +25,26 @@
 	var movieApp = angular.module("movieApp",[]);//module (app)
 
 	movieApp.controller("movieController", function($scope,movieFactory){//controllers //include scope and factories/services/etc as 
-		 movieFactory.getMovies()
-		 	.then(function(data){
-		 		$scope.movies = data.results;
-		 		// console.log($scope.movies);//moviedb returns json 'results' object with movies
-		 	})
-			
-
+		$scope.movie = {name:''};
+		$("#search").click(function(){
+			 movieFactory.getMovies($scope.movie)
+			 	.then(function(data){
+			 		$scope.movies = data.results;
+			 		// console.log($scope.movies);//moviedb returns json 'results' object with movies
+			 	});
+			 });
 	});
 
 	movieApp.factory('movieFactory', ['$http','$q', function($http,$q){ //inject http (list as param $http) if you want to make .get call here; use aliases; q is for promise (then)
 		//if this were a service, use this keyword
-		var title = "Tomatoes";
-		var url = "http://api.themoviedb.org/3/search/movie?api_key=" + developerKey + "&query=" + title;
+		var url = "http://api.themoviedb.org/3/search/movie?api_key=" + developerKey + "&query=";
 
 		var factory = {};
-		factory.getMovies=function(){
+		factory.getMovies=function(movie){
+			console.log(movie.name); //movie passed to getMovies
 			var deferred = $q.defer();
 			var movies =[];
-			$http.get(url).success(function(data, status, headers, config){
+			$http.get(url+movie.name).success(function(data, status, headers, config){
 				deferred.resolve(data);
 			}).error(function (data, status, headers, config) {
                deferred.reject(data);
