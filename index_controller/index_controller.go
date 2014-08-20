@@ -41,8 +41,19 @@ func Params(rw http.ResponseWriter, req *http.Request, ren render.Render, params
 func Movies(rw http.ResponseWriter, req *http.Request, ren render.Render, params martini.Params) {
 	rw.Header().Set("Access-Control-Allow-Origin", "*")
 	tableData := ""
-	// template := params["partial"]
 	template := "movies"
+	Generic(rw, req, ren, tableData, template)
+}
+
+func Finance(rw http.ResponseWriter, req *http.Request, ren render.Render, params martini.Params) {
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
+	rw.Header().Set("Access-Control-Allow-Headers", "XAUTH")
+	rw.Header().Set("Access-Control-Allow-Methods", "GET")
+	rw.Header().Set("Access-Control-Allow-Methods", "POST")
+	rw.Header().Set("Access-Control-Allow-Methods", "PUT")
+	rw.Header().Set("Access-Control-Allow-Methods", "DELETE")
+	tableData := ""
+	template := "finance"
 	Generic(rw, req, ren, tableData, template)
 }
 

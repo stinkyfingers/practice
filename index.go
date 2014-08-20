@@ -37,6 +37,7 @@ func main() {
 	m.Get("/angular", index_controller.Angular)
 	m.Get("/angular/partials/:partial", index_controller.Params)
 	m.Get("/movies", index_controller.Movies)
+	m.Get("/finance", index_controller.Finance)
 
 	// r.Get("/youtube", youtube_controller.Youtube)
 	// m.Get("/demos", panorama_controller.Panorama)
