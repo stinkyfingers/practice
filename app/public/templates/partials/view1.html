@@ -1,0 +1,18 @@
+<!-- <div ng-app="demoApp"> VIEW 1 -->
+	<input type="text" name="name" ng-model="name"> 
+	{{name }}
+	<!-- <div ng-controller="SimpleController"> -->
+		<ul>
+			<li ng-repeat="customer in customers | filter:name | orderBy:'city'" >{{customer.name}} - {{customer.city}}</li> <!-- city in quotes gets property rather than name -->
+
+		</ul>
+
+	<!-- </div> -->
+	<label for="name">Name (data binding):</label>
+	<input type="text" name="name" ng-model="newCustomer.name"> 
+	<label for="city">City:</label>
+	<input type="text" name="city" ng-model="newCustomer.city">
+	<button ng-click="addCustomer()">Add Customer</button>
+	<a href="#/view2">View 2 </a>
+<!-- </div>
+<script src="/js/angular.js"></script> -->

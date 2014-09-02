@@ -1,0 +1,68 @@
+
+
+<div ng-app="demoApp">
+	<!-- <label for="name">Name (data binding):</label>
+	<input type="text" name="name" ng-model="name"> 
+	{{name }}
+
+	<div ng-controller="SimpleController">
+		<ul>
+			<li ng-repeat="customer in customers | filter:name | orderBy:'city'" >{{customer.name}} - {{customer.city}}</li> <!-- city in quotes gets property rather than name -->
+
+		<!-- </ul>
+
+	</div> --> 
+	<div ng-view=""></div>
+</div>
+<script src="/js/angular.js"></script>
+<script src="/js/angular-route.js"></script> <!-- old angular routing was deprecated in 1.2, added as sep module -->
+<script>
+//https://www.youtube.com/watch?v=i9MHigUZKEM
+//start at 1:05 for more complex example
+	var demoApp = angular.module("demoApp",['ngRoute']);//module (app)
+
+	demoApp.config(function($routeProvider){
+		$routeProvider
+			.when('/',
+			{
+				controller: 'SimpleController',
+				templateUrl:'templates/partials/view1.html'
+			})
+			.when('/view2',
+			{
+				controller: 'SimpleController',
+				templateUrl:'templates/partials/view2.html'
+			})
+			.otherwise({redirectTo:'/'});
+	});
+
+	demoApp.factory('simpleFactory', function(){ //inject http (list as param $http) if you want to make .get call here
+		//if this were a service, use this keyword
+		var customers = [{name:'Bob', city:'Phoenix'},{name:'Dave', city:'Austin'},{name:'Steve', city:'Rockford'}];
+		var factory = {};
+		factory.getCustomers=function(){
+			return customers;
+		};
+		factory.postCustomer = function(customer){
+			//do something
+		};
+		return factory;
+	});
+
+	var controllers = {};
+	controllers.SimpleController = function($scope,simpleFactory){//controllers //include scope and factories/services/etc as params
+		// $scope.customers  = [{name:'Bob', city:'Phoenix'},{name:'Dave', city:'Austin'},{name:'Steve', city:'Rockford'}];
+		$scope.customers = [];
+		function init(){
+			$scope.customers = simpleFactory.getCustomers();//can just put this line, init-ing is just nice for getting data
+		}
+		init();
+		$scope.addCustomer = function(){
+			$scope.customers.push({name: $scope.newCustomer.name, city: $scope.newCustomer.city});
+		}
+	};
+	demoApp.controller(controllers);//est demoApps controllers
+
+
+
+</script>

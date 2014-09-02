@@ -1,0 +1,14 @@
+<div ng-app="demoApp">VIEW 2
+	<label for="name">Name (data binding):</label>
+	<input type="text" name="name" ng-model="name"> 
+	{{name }}
+
+	<div ng-controller="SimpleController">
+		<ul>
+			<li ng-repeat="customer in customers | filter:name | orderBy:'city'" >{{customer.name}} - {{customer.city}}</li> <!-- city in quotes gets property rather than name -->
+
+		</ul>
+
+	</div>
+</div>
+<script src="/js/angular.js"></script>

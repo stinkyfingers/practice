@@ -1,0 +1,23 @@
+
+body{
+	font-family:arial, Sans-Serif;
+	font-size:1.2em;
+	background-color:#fcfcff;
+}
+
+.movies tr, th, td {
+	border:1px solid #222;
+	padding:.2em;
+}
+
+.menu{
+	display:inline-block;
+
+}
+li{
+	background-color:#ededee;
+	display:inline;
+	padding: 1em;
+	min-width: 9em;
+}
+
