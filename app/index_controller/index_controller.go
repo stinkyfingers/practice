@@ -45,6 +45,13 @@ func Movies(rw http.ResponseWriter, req *http.Request, ren render.Render, params
 	Generic(rw, req, ren, tableData, template)
 }
 
+func Music(rw http.ResponseWriter, req *http.Request, ren render.Render, params martini.Params) {
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
+	tableData := ""
+	template := "iTunes"
+	Generic(rw, req, ren, tableData, template)
+}
+
 func Finance(rw http.ResponseWriter, req *http.Request, ren render.Render, params martini.Params) {
 	rw.Header().Set("Access-Control-Allow-Origin", "*")
 	rw.Header().Set("Access-Control-Allow-Headers", "XAUTH")

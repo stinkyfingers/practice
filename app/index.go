@@ -5,8 +5,10 @@ import (
 	"github.com/martini-contrib/render"
 	// "github.com/stinkyfingers/practice/indexer_controller"
 	// "github.com/stinkyfingers/practice/test_controller"
-	"index_controller"
-	"test_controller"
+	// "index_controller"
+	// "test_controller"
+	"github.com/stinkyfingers/practice/app/index_controller"
+	"github.com/stinkyfingers/practice/app/test_controller"
 
 	"html/template"
 	// "log"
@@ -36,13 +38,14 @@ func init() {
 	}))
 
 	//Actual Routes - uncomment to do it right
-	m.Get("/", index_controller.Index)
+	m.Get("", index_controller.Index)
 	m.Get("/index", index_controller.Index)
 	m.Get("/index2", index_controller.Index2)
 	m.Get("/angular", index_controller.Angular)
 	m.Get("/angular/partials/:partial", index_controller.Params)
 	m.Get("/movies", index_controller.Movies)
 	m.Get("/finance", index_controller.Finance)
+	m.Get("/music", index_controller.Music)
 
 	m.Get("/test", test_controller.Test)
 	// m.Get("/", test_controller.Test)

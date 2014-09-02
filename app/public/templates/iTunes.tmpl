@@ -1,0 +1,26 @@
+<div ng-app="musicApp">
+	<div ng-controller="musicController">
+	
+
+		<label for="artist">Artist</label>
+		<input type="text" name="artist" ng-model="artist" ng-blur="updateArtist()">{{artist}}
+		<br>
+		<button ng-click="submitArtist()">Send</button>
+		<br>
+		<div ng-model="data">
+			
+		</div>
+		<div ng-repeat="result in results">
+			<p>{{result.artistName}} - {{result.collectionName}} - {{result.trackName}}</p>
+
+		</div>
+
+	</div>
+
+</div>
+
+<!-- <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
+<script src="/js/angular.js"></script>
+<!-- <script src="/js/angular-route.js"></script> -->
+<script src="/js/controllers/iTunes.js"></script>
+<script src="/js/factories/iTunes.js"></script>iTunes
