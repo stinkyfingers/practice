@@ -1,0 +1,21 @@
+
+<div ng-app="imgurApp">
+	<div ng-controller="imgurController">
+		
+	<input type="text" name="id" ng-model="image.id">
+	<button ng-click="lookup(image)">Search</button>
+
+	<img ng-if="image.link" ng-src="{{image.link}}" style="width:200px">
+	<div ng-model="image">{{link}}</div>
+
+	<button ng-click="auth()">Login</button>
+	
+
+	</div>
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/js/angular.js"></script>
+<script src="/js/angular-route.js"></script>
+<script src="/js/controllers/imgur.js"></script>
+<script src="/js/factories/imgur.js"></script>

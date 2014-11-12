@@ -1,0 +1,39 @@
+
+<div ng-app="calendar2App">
+	<div ng-controller="calendarController2">
+
+		<a ng-if="testSite" href="https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/calendar&client_id=576551333135-dhotmr1m7ne5q1man20r6k3d1t3gvsa1.apps.googleusercontent.com&redirect_uri=http://localhost:8080/oauth2callback&response_type=token&application_name=practicegoangular">Try
+	    out that example URL now</a>
+
+	    <a ng-if="!testSite" href="https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/calendar&client_id=576551333135-k4g9c1jcsbeg52fjniougsjtics1i5js.apps.googleusercontent.com&redirect_uri=https://practicegoangular.appspot.com/oauth2callback&response_type=token&application_name=practicegoangular">LOGIN</a>
+		
+
+		<p>Path: {{path}}</p>
+		<p>Access Token: {{access_token}}
+		<p><button ng-click="calendarList()">Calendar List</button></p>
+		<p><button ng-click="eventsList()">Events List</button></p>
+
+		<div ng-if="userCalendars" ng-repeat="cal in userCalendars">
+			<p>ID: {{cal.id}}</p>
+			<p>Access Role: {{cal.accessRole}}</p>
+
+		</div>
+
+		<div ng-if="userEvents" ng-repeat="e in userEvents">
+			<p>Start: {{e.start.date}}</p>
+			<p>End: {{e.end.date}}</p>
+			<p>Event: {{e.summary}}</p>
+		</div>	
+
+
+
+
+
+	</div>
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/js/angular.js"></script>
+<script src="/js/angular-route.js"></script>
+<script src="/js/controllers/calendar2.js"></script>
+<script src="/js/factories/calendar2.js"></script>

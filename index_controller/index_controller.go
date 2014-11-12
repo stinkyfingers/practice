@@ -52,6 +52,37 @@ func Music(rw http.ResponseWriter, req *http.Request, ren render.Render, params 
 	Generic(rw, req, ren, tableData, template)
 }
 
+func Imgur(rw http.ResponseWriter, req *http.Request, ren render.Render, params martini.Params) {
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
+	tableData := ""
+	template := "imgur"
+	Generic(rw, req, ren, tableData, template)
+}
+func Twitter(rw http.ResponseWriter, req *http.Request, ren render.Render, params martini.Params) {
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
+	tableData := ""
+	template := "twitter"
+	Generic(rw, req, ren, tableData, template)
+}
+func Calendar(rw http.ResponseWriter, req *http.Request, ren render.Render, params martini.Params) {
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
+	tableData := ""
+	template := "calendar"
+	Generic(rw, req, ren, tableData, template)
+}
+func Calendar2(rw http.ResponseWriter, req *http.Request, ren render.Render, params martini.Params) {
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
+	tableData := ""
+	template := "calendar2"
+	Generic(rw, req, ren, tableData, template)
+}
+
+func Auth(rw http.ResponseWriter, req *http.Request, ren render.Render, params martini.Params) {
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
+	tableData := ""
+	template := "calendar"
+	Generic(rw, req, ren, tableData, template)
+}
 func Finance(rw http.ResponseWriter, req *http.Request, ren render.Render, params martini.Params) {
 	rw.Header().Set("Access-Control-Allow-Origin", "*")
 	rw.Header().Set("Access-Control-Allow-Headers", "XAUTH")

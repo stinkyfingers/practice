@@ -3,12 +3,10 @@ package index
 import (
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
-	// "github.com/stinkyfingers/practice/indexer_controller"
+	"index_controller"
+	"test_controller"
+	// "github.com/stinkyfingers/practice/index_controller"
 	// "github.com/stinkyfingers/practice/test_controller"
-	// "index_controller"
-	// "test_controller"
-	"github.com/stinkyfingers/practice/index_controller"
-	"github.com/stinkyfingers/practice/test_controller"
 
 	"html/template"
 	// "log"
@@ -46,6 +44,11 @@ func init() {
 	m.Get("/movies", index_controller.Movies)
 	m.Get("/finance", index_controller.Finance)
 	m.Get("/music", index_controller.Music)
+	m.Get("/imgur", index_controller.Imgur)
+	m.Get("/calendar", index_controller.Calendar)
+	m.Get("/calendar2", index_controller.Calendar2)
+	m.Get("/oauth2callback", index_controller.Calendar)
+	m.Get("/twitter", index_controller.Twitter)
 
 	m.Get("/test", test_controller.Test)
 	// m.Get("/", test_controller.Test)
